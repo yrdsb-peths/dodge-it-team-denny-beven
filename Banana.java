@@ -8,32 +8,48 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Banana extends Actor
 {
-    /**
-     * Act - do whatever the Banana wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    
+    
+    private boolean flippedX = true;
+
+    private int globalSpeed = 25;
+    private int direction = -globalSpeed;
+    
     public void act()
     {
-        move(-25);
+        move(direction);
         
-        if (getX() <= 0)
+        if ((getX() <= 0) || (getX() >= getWorld().getWidth()-2))
         {
             resetBanana();
         }
-        
         
     }
     
     public void resetBanana()
     {
-        int x = Greenfoot.getRandomNumber(2);
-        if(x == 0)
-        {
-            setLocation(600,100);
-        }
+        int y = Greenfoot.getRandomNumber(400);
+        int x = 0;
+        int balls = Greenfoot.getRandomNumber(2);
+        
+        boolean flippedX = (balls == 0);
+        if (flippedX)
+        {   
+            direction = -globalSpeed;
+            x = getWorld().getWidth();
+        } 
         else
         {
-            setLocation(600,300);
+            direction = globalSpeed;
         }
+        
+        direction = direction + (Greenfoot.getRandomNumber(5) - 5);
+        
+        
+        
+        boolean flippedY = (Greenfoot.getRandomNumber(2) != 0);
+        
+        setLocation(x,y);
+
     }
 }
